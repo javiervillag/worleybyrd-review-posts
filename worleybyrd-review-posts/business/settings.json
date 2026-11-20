@@ -1,0 +1,22 @@
+{
+  "business_name": "WorleyByrd",
+  "website": "https://worleybyrdroofing.com/",
+  "review_links": [
+    { "name": "Website testimonials", "url": "https://worleybyrdroofing.com/resources/testimonials/" },
+    { "name": "BBB", "url": "https://www.bbb.org/us/tx/austin/profile/roofing-contractors/worleybyrd-roofing-restoration-0825-1000209560/customer-reviews" },
+    { "name": "Google", "url": "https://www.google.com/maps/place/WorleyByrd+Roofing+and+Restoration/@29.9342547,-97.3254567,8.73z/data=!4m6!3m5!1s0x4b3a8359dd56d65f:0xe02847feb1a8a9cc!8m2!3d30.4536839!4d-97.772954!16s%2Fg%2F11tdkyz4vq?hl=en" }
+  ],
+  "only_stars": 5,
+  "template": "auto",
+  "carousel": "long-only",
+  "short_quote_words": 32,
+  "colors": { "dark": "#0c3455", "darker": "#071f35", "accent": "#cb972b", "accent_light": "#e2b04a" },
+  "logo": "logo.png",
+  "photos_folder": "photos",
+  "photo_focus": { "dji-0533.jpg": "50% 20%" },
+  "bubble_title": "Client Review",
+  "caption": {
+    "extras": "Free roof inspection: (512) 216-8202",
+    "hashtags": ["#AustinRoofing", "#CentralTexas", "#RoofReplacement", "#FamilyOwned"]
+  }
+}
