@@ -288,30 +288,38 @@ def bubble(bg, logo_white, c, r, title):
     box = (side, box_top, W - side, box_top + box_h)
     # shadow
     sh = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    ImageDraw.Draw(sh).rounded_rectangle((box[0], box[1] + 24, box[2], box[3] + 24), 8, fill=rgb(c["darker"], 110))
+    ImageDraw.Draw(sh).rounded_rectangle((box[0], box[1] + 24, box[2], box[3] + 24), 32, fill=rgb(c["darker"], 110))
     img.alpha_composite(sh.filter(ImageFilter.GaussianBlur(28)))
     d = ImageDraw.Draw(img)
-    d.rounded_rectangle(box, 6, fill=(255, 255, 255, 255))
+    d.rounded_rectangle(box, 32, fill=(255, 255, 255, 255))
     d.polygon([(side + 90, box[3] - 1), (side + 186, box[3] - 1), (side + 90, box[3] + 78)], fill=(255, 255, 255, 255))
     ax, ay = side + pad, box_top + 56
     d.ellipse((ax, ay, ax + 84, ay + 84), fill=rgb(c["dark"]))
     name = r.get("name") or r["_fallback"]
-    d.text((ax + 42, ay + 44), name.strip()[0].upper(), font=sans(40, "SemiBold"), fill=rgb(c["accent_light"]), anchor="mm")
+    ini, inf = name.strip()[0].upper(), sans(40, "SemiBold")
+    l, t, rr, b = d.textbbox((0, 0), ini, font=inf)  # center the letter's ink, not the font's line box
+    d.text((ax + 42 - (l + rr) / 2, ay + 42 - (t + b) / 2), ini, font=inf, fill=rgb(c["accent_light"]))
     nx = ax + 84 + 24
     d.text((nx, ay + 2), name, font=sans(30, "SemiBold"), fill=(29, 39, 51, 255))
     sw = stars(d, nx, ay + 46, 30, rgb(c["accent"]), 5)
     d.text((nx + sw + 16, ay + 49), r["_srcline"], font=sans(20), fill=(74, 85, 99, 255))
     draw_lines(d, lines, fonts, ax, ay + 84 + 30, size, 1.5, {False: (29, 39, 51, 255), True: rgb(c["dark"])})
     spaced(d, (side, 1150), f"5-star {r.get('source', 'Google')} review".upper(), label_font(25), rgb(c["accent_light"]), 5)
-    d.text((side, 1190), title, font=serif(64, weight=500), fill=(255, 255, 255, 255))
+    tf = serif(64, weight=500)
+    d.text((side, 1190), title, font=tf, fill=(255, 255, 255, 255))
     if logo_white is not None:
-        paste_h(img, logo_white, 140, (W - 100, H - 80 - 140), "rt")
+        # line the logo up with the label + title block: same right margin as the card, centered on the block's ink
+        block_top = 1150 + label_font(25).getbbox("A")[1]
+        block_bottom = d.textbbox((side, 1190), title, font=tf)[3]
+        lh = 140  # paste_h scales the logo to exactly this height
+        paste_h(img, logo_white, 140, (W - side, round((block_top + block_bottom - lh) / 2)), "rt")
     return img
 
 
 # ---------------------------------------------------------------- batch
 def review_key(r):
-    base = f"{r.get('source', '')}|{r.get('name', '')}|{re.sub(r'\s+', ' ', r['quote'].strip())[:80]}"
+    text = re.sub(r'\s+', ' ', r['quote'].strip())[:80]
+    base = f"{r.get('source', '')}|{r.get('name', '')}|{text}"
     return hashlib.sha1(base.lower().encode()).hexdigest()[:16]
 
 
