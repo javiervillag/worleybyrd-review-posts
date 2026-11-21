@@ -32,7 +32,7 @@ Rules:
 - **5-star only.** Skip 4-star and lower. On the website, the review widget shows star images: filled stars are `/star/f.svg` and empty ones are `/star/e.svg`, so a 1-star review still shows five star shapes.
 - **Website testimonials are Google reviews** copied onto the site. Use `"source": "Google"`.
 - **Same review in two places:** the same customer often posts on Google and BBB. Make **one** post, and use the Google copy, because BBB hides staff names.
-- **Photos with reviews:** if the reviewer attached photos, download the largest version into `photos/from-reviews/` and set `"photo"` on that review. It becomes that post's background. Mention it in the hand-over.
+- **Customer photos and profile pictures:** reviews with photos make the best posts, so look for them on purpose, including older 5-star reviews with photos that aren't in `seen.json` yet. When a reviewer attached a photo that works as a background (the finished roof, the house, the crew; sharp; no text, labels or watermark), save it in `photos/from-reviews/` and set `"photo"` on that review: it becomes that post's background, and only that post's. Crop a before/after collage down to the "after" panel. If no photo works, leave `photo` out and the post uses the normal rotation. Save a real profile picture to `photos/avatars/` and set `"avatar"`; skip Google's default one-letter icons. The details are in `reference/find-reviews.md` ("Customer photos and profile pictures"). In the hand-over, say which posts use the customer's own photo.
 - **Image testimonials** (a screenshot or card with text): read the text from the image, check it word for word, and treat it as a review.
 - Reviews already in `seen.json` are skipped automatically. Say how many were new.
 
